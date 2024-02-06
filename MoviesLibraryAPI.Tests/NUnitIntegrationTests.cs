@@ -69,13 +69,17 @@ namespace MoviesLibraryAPI.Tests
             // Arrange
             var invalidMovie = new Movie
             {
-                // Provide an invalid movie object, for example, missing required fields like 'Title'
-                // Assuming 'Title' is a required field, do not set it
+                Title = " ",
+                Director = "Director",
+                YearReleased = 2002,
+                Genre = "Act",
+                Duration = 186,
+                Rating = 17.5
             };
 
             // Act and Assert
-            // Expect a ValidationException because the movie is missing a required field
             var exception = Assert.ThrowsAsync<ValidationException>(() => _controller.AddAsync(invalidMovie));
+            Assert.That(exception.Message, Is.EqualTo("Movie is not valid."));
         }
 
         [Test]
